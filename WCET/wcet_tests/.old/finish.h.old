@@ -1,0 +1,6 @@
+
+// Delays
+void ms_delay(int ms);
+
+// Blinks 5 times and stay lit
+void signal_finish();

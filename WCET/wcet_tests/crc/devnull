@@ -1,0 +1,16 @@
+rm -f *.o project.elf project.hex project.bin
+arm-none-eabi-gcc -g -O2 -Wall -Tstm32_flash.ld  -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I. -I../../STM32F4-Discovery_FW_V1.1.0/Utilities/STM32F4-Discovery -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/STM32F4xx_StdPeriph_Driver/inc main.c system_stm32f4xx.c ../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Source/Templates/TrueSTUDIO/startup_stm32f4xx.s -o project.elf 
+main.c: In function 'icrc1':
+main.c:76:8: warning: operation on 'ans' may be undefined [-Wsequence-point]
+    ans = (ans <<= 1) ^ 4129;
+        ^
+main.c: In function 'main':
+main.c:129:21: warning: variable 'i2' set but not used [-Wunused-but-set-variable]
+   unsigned short i1,i2;
+                     ^
+arm-none-eabi-objcopy -O ihex project.elf project.hex
+arm-none-eabi-objcopy -O binary project.elf project.bin
+~/stlink/st-flash write project.bin 0x8000000
+2015-04-14T09:24:16 WARN src/stlink-usb.c: Couldn't find any ST-Link/V2 devices
+Makefile:51: recipe for target 'burn' failed
+make: *** [burn] Error 255

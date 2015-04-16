@@ -1,0 +1,37 @@
+rm -f *.o project.elf project.hex project.bin
+arm-none-eabi-gcc -g -O2 -Wall -Tstm32_flash.ld  -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I. -I../../STM32F4-Discovery_FW_V1.1.0/Utilities/STM32F4-Discovery -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/STM32F4xx_StdPeriph_Driver/inc main.c system_stm32f4xx.c ../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Source/Templates/TrueSTUDIO/startup_stm32f4xx.s -o project.elf 
+main.c: In function 'main':
+main.c:215:2: error: 'RCC' undeclared (first use in this function)
+  RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;  // enable the clock to GPIOD
+  ^
+main.c:215:2: note: each undeclared identifier is reported only once for each function it appears in
+main.c:215:18: error: 'RCC_AHB1ENR_GPIODEN' undeclared (first use in this function)
+  RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;  // enable the clock to GPIOD
+                  ^
+main.c:216:2: warning: implicit declaration of function 'ms_delay' [-Wimplicit-function-declaration]
+  ms_delay(100);
+  ^
+main.c: In function 'initbuffer':
+main.c:243:8: warning: variable 'tabort' set but not used [-Wunused-but-set-variable]
+    int tabort;
+        ^
+Makefile:42: recipe for target 'project.elf' failed
+make: *** [project.elf] Error 1
+arm-none-eabi-gcc -g -O2 -Wall -Tstm32_flash.ld  -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I. -I../../STM32F4-Discovery_FW_V1.1.0/Utilities/STM32F4-Discovery -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/STM32F4xx_StdPeriph_Driver/inc main.c system_stm32f4xx.c ../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Source/Templates/TrueSTUDIO/startup_stm32f4xx.s -o project.elf 
+main.c: In function 'main':
+main.c:215:2: error: 'RCC' undeclared (first use in this function)
+  RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;  // enable the clock to GPIOD
+  ^
+main.c:215:2: note: each undeclared identifier is reported only once for each function it appears in
+main.c:215:18: error: 'RCC_AHB1ENR_GPIODEN' undeclared (first use in this function)
+  RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;  // enable the clock to GPIOD
+                  ^
+main.c:216:2: warning: implicit declaration of function 'ms_delay' [-Wimplicit-function-declaration]
+  ms_delay(100);
+  ^
+main.c: In function 'initbuffer':
+main.c:243:8: warning: variable 'tabort' set but not used [-Wunused-but-set-variable]
+    int tabort;
+        ^
+Makefile:42: recipe for target 'project.elf' failed
+make: *** [project.elf] Error 1

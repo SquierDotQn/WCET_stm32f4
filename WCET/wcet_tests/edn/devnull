@@ -1,0 +1,65 @@
+rm -f *.o project.elf project.hex project.bin
+arm-none-eabi-gcc -g -O2 -Wall -Tstm32_flash.ld  -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I. -I../../STM32F4-Discovery_FW_V1.1.0/Utilities/STM32F4-Discovery -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/STM32F4xx_StdPeriph_Driver/inc main.c system_stm32f4xx.c ../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Source/Templates/TrueSTUDIO/startup_stm32f4xx.s -o project.elf 
+main.c: In function 'codebook':
+main.c:159:18: warning: variable 'tmpMask' set but not used [-Wunused-but-set-variable]
+  long int        tmpMask;
+                  ^
+../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cm4.h: At top level:
+main.c:18:11: error: expected identifier or '(' before numeric constant
+ #define N 100
+           ^
+../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cm4.h:233:14: note: in expansion of macro 'N'
+     uint32_t N:1;                        /*!< bit:     31  Negative condition code flag       */
+              ^
+In file included from ../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h:245:0,
+                 from ../../STM32F4-Discovery_FW_V1.1.0/Utilities/STM32F4-Discovery/stm32f4_discovery.h:32,
+                 from main.c:220:
+../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cm4.h:234:3: warning: no semicolon at end of struct or union [enabled by default]
+   } b;                                   /*!< Structure used for bit  access                  */
+   ^
+main.c:18:11: error: expected identifier or '(' before numeric constant
+ #define N 100
+           ^
+../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cm4.h:272:14: note: in expansion of macro 'N'
+     uint32_t N:1;                        /*!< bit:     31  Negative condition code flag       */
+              ^
+In file included from ../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h:245:0,
+                 from ../../STM32F4-Discovery_FW_V1.1.0/Utilities/STM32F4-Discovery/stm32f4_discovery.h:32,
+                 from main.c:220:
+../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cm4.h:273:3: warning: no semicolon at end of struct or union [enabled by default]
+   } b;                                   /*!< Structure used for bit  access                  */
+   ^
+Makefile:42: recipe for target 'project.elf' failed
+make: *** [project.elf] Error 1
+arm-none-eabi-gcc -g -O2 -Wall -Tstm32_flash.ld  -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I. -I../../STM32F4-Discovery_FW_V1.1.0/Utilities/STM32F4-Discovery -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/STM32F4xx_StdPeriph_Driver/inc main.c system_stm32f4xx.c ../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Source/Templates/TrueSTUDIO/startup_stm32f4xx.s -o project.elf 
+main.c: In function 'codebook':
+main.c:159:18: warning: variable 'tmpMask' set but not used [-Wunused-but-set-variable]
+  long int        tmpMask;
+                  ^
+../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cm4.h: At top level:
+main.c:18:11: error: expected identifier or '(' before numeric constant
+ #define N 100
+           ^
+../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cm4.h:233:14: note: in expansion of macro 'N'
+     uint32_t N:1;                        /*!< bit:     31  Negative condition code flag       */
+              ^
+In file included from ../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h:245:0,
+                 from ../../STM32F4-Discovery_FW_V1.1.0/Utilities/STM32F4-Discovery/stm32f4_discovery.h:32,
+                 from main.c:220:
+../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cm4.h:234:3: warning: no semicolon at end of struct or union [enabled by default]
+   } b;                                   /*!< Structure used for bit  access                  */
+   ^
+main.c:18:11: error: expected identifier or '(' before numeric constant
+ #define N 100
+           ^
+../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cm4.h:272:14: note: in expansion of macro 'N'
+     uint32_t N:1;                        /*!< bit:     31  Negative condition code flag       */
+              ^
+In file included from ../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h:245:0,
+                 from ../../STM32F4-Discovery_FW_V1.1.0/Utilities/STM32F4-Discovery/stm32f4_discovery.h:32,
+                 from main.c:220:
+../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cm4.h:273:3: warning: no semicolon at end of struct or union [enabled by default]
+   } b;                                   /*!< Structure used for bit  access                  */
+   ^
+Makefile:42: recipe for target 'project.elf' failed
+make: *** [project.elf] Error 1

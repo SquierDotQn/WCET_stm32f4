@@ -1,0 +1,50 @@
+rm -f *.o project.elf project.hex project.bin
+arm-none-eabi-gcc -g -O2 -Wall -Tstm32_flash.ld  -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I. -I../../STM32F4-Discovery_FW_V1.1.0/Utilities/STM32F4-Discovery -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/STM32F4xx_StdPeriph_Driver/inc main.c system_stm32f4xx.c ../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Source/Templates/TrueSTUDIO/startup_stm32f4xx.s -o project.elf 
+main.c:44:1: warning: return type defaults to 'int' [-Wreturn-type]
+ main()
+ ^
+main.c: In function 'main':
+main.c:55:4: warning: implicit declaration of function 'Initialize' [-Wimplicit-function-declaration]
+    Initialize(Array);
+    ^
+main.c:57:4: warning: implicit declaration of function 'BubbleSort' [-Wimplicit-function-declaration]
+    BubbleSort(Array);
+    ^
+main.c:47:10: warning: unused variable 'TotalTime' [-Wunused-variable]
+    float TotalTime;
+          ^
+main.c:46:21: warning: unused variable 'StopTime' [-Wunused-variable]
+    long  StartTime, StopTime;
+                     ^
+main.c:46:10: warning: unused variable 'StartTime' [-Wunused-variable]
+    long  StartTime, StopTime;
+          ^
+main.c: At top level:
+main.c:84:1: warning: return type defaults to 'int' [-Wreturn-type]
+ Initialize(Array)
+ ^
+main.c:105:1: warning: return type defaults to 'int' [-Wreturn-type]
+ BubbleSort(Array)
+ ^
+main.c: In function 'BubbleSort':
+main.c:112:14: warning: unused variable 'LastIndex' [-Wunused-variable]
+    int Temp, LastIndex, Index, i;
+              ^
+main.c: In function 'Initialize':
+main.c:101:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+main.c: In function 'BubbleSort':
+main.c:143:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+main.c: In function 'ttime':
+main.c:79:19: warning: 'buffer.tms_utime' is used uninitialized in this function [-Wuninitialized]
+    utime = (buffer.tms_utime / 60.0) * 1000.0;
+                   ^
+arm-none-eabi-objcopy -O ihex project.elf project.hex
+arm-none-eabi-objcopy -O binary project.elf project.bin
+~/stlink/st-flash write project.bin 0x8000000
+2015-04-14T09:24:15 WARN src/stlink-usb.c: Couldn't find any ST-Link/V2 devices
+Makefile:51: recipe for target 'burn' failed
+make: *** [burn] Error 255

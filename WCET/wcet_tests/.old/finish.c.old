@@ -1,0 +1,33 @@
+#define USE_STDPERIPH_DRIVER
+#include "stm32f4xx.h"
+
+//Quick hack, approximately 1ms delay
+void ms_delay(int ms)
+{
+   while (ms-- > 0) {
+      volatile int x=5971;
+      while (x-- > 0)
+         __asm("nop");
+   }
+}
+
+//Blinks 5 times then stays lit
+void signal_finish(){
+  int i;
+  RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;  // enable the clock to GPIOD
+  GPIOD->MODER = (1 << 30);
+/*  RCC->AHB1ENR |= RCC_AHB1ENR_GPIOEEN;  // enable the clock to GPIOD
+  GPIOE->MODER = (1 << 28);*/
+  for (i=0;i<5;i++) {
+    ms_delay(500);
+    GPIOD->ODR ^= (1 << 15); // Toggle the pin 
+    ms_delay(500);
+    GPIOD->ODR ^= (1 << 15);
+/*
+    ms_delay(500);
+    GPIOE->ODR ^= (1 << 14); // Toggle the pin 
+    ms_delay(500);
+    GPIOE->ODR ^= (1 << 14);
+*/  }
+  GPIOD->ODR ^= (1 << 15);
+}
