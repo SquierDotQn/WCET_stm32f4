@@ -5,37 +5,60 @@ import numpy as np
 
 # script python permettant d'avoir les valeurs moyennes de la consommation de la carte selon les mesures
 
-######################################################
-# Simplify the data, gets the montage data to binary #
-######################################################
-def get_binary_graph_data(data):
+##########################################
+# Gets the average value of the montage, #
+# to sort it between on and off          #
+##########################################
+def get_avg_binary():
 
 	binary_low  = np.loadtxt("nothing_wo_pin/test/csv_files/test_theo_nothing_wo_pin_1.csv", delimiter=',', skiprows=8)
+	binary_high = np.loadtxt("nothing_w_pin/test/csv_files/test_theo_nothing_w_pin_1.csv", delimiter=',', skiprows=8)
+	avg_high = 0
+ 	for i in len(binary_high):
+		avg_high += binary_high[i][2]
+	avg_high = avg_high/len(binary_high)
+
+	avg_low = 0
+ 	for i in len(binary_low):
+		avg_low += binary_low[i][2]
+	avg_low = avg_low/len(binary_low)
+
+	avg_binary = avg_low + avg_high
+	avg_binary = avg_binary / 2
+
+	return avg_binary
+
+# unfinished
+#####################################################
+# Gets the average energy consumption of a function #
+#####################################################
+def get_avg_consumption(data):
+
 	binary_high = np.loadtxt("nothing_w_pin/test/csv_files/test_theo_nothing_w_pin_1.csv", delimiter=',', skiprows=8)
 	i = 0
  	for i in len(binary_high):
 		i += binary_high[i][2]
 	avg_high = i/len(binary_high)
 
-	i = 0
- 	for i in len(binary_low):
-		i += binary_low[i][2]
-	avg_low = i/len(binary_low)
+	avg_bin = get_avg_binary(data)
 
-	avg_binary = avg_low + avg_high
-	avg_binary = avg_binary / 2
+	for i in len(data)
 
- 	for i in len(data):
-		if (data[i][2] > avg_binary):
-			data = 1
-		else:
-			data = 0
-
-    return data
-
-
-def get_consumption_data(data):
 	return len(data)
+
+# unfinished
+########################################################
+# Returns the consumption of this sample of a function #
+# ( when the binary graph is at 1 )                    #
+########################################################
+def get_consumption(list_data, sample_time):
+	time = len(list_data) * sample_time
+	i = 0
+	for i in len(list_data):
+		i += list_data[i][1]
+	return consumption
+
+
 
 
 ######################
@@ -55,7 +78,7 @@ def main():
 		sys.exit('Usage : python use_results.py filename')
 	
 	data = read_datafile(sys.argv[1])
-	print get_consumption_data(data)
+	print get_binary_graph_data(data)
 	
 
 
