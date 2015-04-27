@@ -1,0 +1,3 @@
+rm -f *.o project.elf project.hex project.bin
+make: *** No rule to make target 'stm32f4xx_rcc.c', needed by 'project.elf'. Arrêt.
+make: *** No rule to make target 'stm32f4xx_rcc.c', needed by 'project.elf'. Arrêt.

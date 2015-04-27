@@ -1,14 +1,14 @@
 #!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 
-from bs4 import BeautifulSoup
+from lxml import etree
 import time
 import re
 import struct
 
 
 ########
-## dlog_parser:
+## dlog_parser: 
 ## Read and Parse the binary file used by the AGILENT N6705A
 ## and convert it to a .csv file data
 ########
@@ -34,7 +34,7 @@ def dlog_parser(file_in_dlog_path, file_out_csv_path):
 	# Dissmiss the first line of the dlog file
 	file_in_dlog.readline()
 	for i in range(1,150):
-		line = file_in_dlog.readline()
+		line = file_in_dlog.readline() 
 
 		if ( line[5].isdigit() ):
 			if (line[5] == '1'):
@@ -45,12 +45,11 @@ def dlog_parser(file_in_dlog_path, file_out_csv_path):
 		xml_header += line
 
 	# Load the xml (Parsing)
-        soup = BeautifulSoup(xml_header)
+	root = etree.fromstring(xml_header)
 
 	# Get the data log Time and sampling time
-        frame           = soup.frame
-	total_time 	= frame.time.string
-	sampl_time 	= frame.tint.string
+	total_time 	= root[4][2].text
+	sampl_time 	= root[4][4].text
 
 	file_out_csv.write("Sample interval: " + sampl_time + "\n")
 	file_out_csv.write("Total Time: " + total_time + "\n")
@@ -59,12 +58,12 @@ def dlog_parser(file_in_dlog_path, file_out_csv_path):
 
 	file_out_csv.write("Sample")
 
-	for child in soup.find_all('channel'):
-		if child.sense_volt.string == '1':
-			file_out_csv.write(',"Volt avg ' + child["id"] + '"')
+	for child in root[0:4]:
+		if child[4].text == '1':
+			file_out_csv.write(',"Volt avg ' + child.attrib["id"] + '"')
 			val_per_line_max += 1
-		if child.sense_curr == '1':
-			file_out_csv.write(',"Curr avg ' + child["id"] + '"')
+		if child[5].text == '1':
+			file_out_csv.write(',"Curr avg ' + child.attrib["id"] + '"')
 			val_per_line_max += 1
 
 	file_out_csv.write('\n')
@@ -82,14 +81,14 @@ def dlog_parser(file_in_dlog_path, file_out_csv_path):
 
 	cpt_sample = 0
 	while True:
-	    binary_str = file_in_dlog.read(CHUNK_SIZE)
+	    binary_str = file_in_dlog.read(CHUNK_SIZE)  
 	    if not binary_str:
 	        break
 
 	    len_str = len(binary_str)
 	    if (len_str < CHUNK_SIZE):
 	    	STR_FORMAT = '>' + str(len_str/4) + 'f'
-
+	    
 	    values = struct.unpack(STR_FORMAT, binary_str)
 
 	    val_per_line = 0

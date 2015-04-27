@@ -15,12 +15,12 @@ if [ ! -d $1 ]; then
 fi
 cd $1
 ./reload.sh > \dev\null 2>&1
-echo "-------------------------"
+echo "------------------------------------------------"
 echo ""
-echo "<Appuyez sur Reset>"
+echo "<Appuyez sur Reset puis débranchez le cable USB>"
 echo ""
-echo "-------------------------"
-sleep 3
+echo "------------------------------------------------"
+sleep 5
 # TODO : trouver comment faire un reset automatiquement !
 nb=`ls -l test | grep test_ | wc -l`
 nb=`expr $nb + 1`
@@ -32,6 +32,8 @@ if [ $hasdir -lt 1 ]; then
 fi
 mv test_theo_$1_$nb.dlog test/
 
+python ../../dlog_parser/dlog_to_csv.py test/
+#rm -rf test/*.dlog
 #TODO : conversion dlog -> csv
 	
 cd ..

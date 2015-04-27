@@ -29,10 +29,10 @@ def pretty_download(FILENAME):
 
 
 # python auto.py path/ time
-if __name__ == "__main__":
+def main():
 	
-	if (len(sys.argv) < 2):
-		sys.exit('Pas assez d'arguments')
+	#if len(sys.argv) < 2:
+	#	sys.exit("Pas assez d'arguments")
 		
 
 	FILENAME = "test_theo_"+sys.argv[1]
@@ -45,21 +45,23 @@ if __name__ == "__main__":
 	ag = agilent.Agilent(AGILENT_IP, AGILENT_PORT)
 	ag.connect()
 	
-	ag.set_voltage(3, [1])
-	ag.set_current(2, [1])
-	ag.set_period(0.00002, [1])
+	ag.set_voltage(3, [3]) # Pour la carte
+	ag.set_current(2, [3]) # Pour la carte
+	ag.set_voltage(5, [4]) # Pour le montage avec transistor
+	ag.set_period(0.00002, [3,4])
 	ag.set_time(TIME, [1])
-	ag.set_voltage_measure(False, [1])
-	ag.set_current_measure(True, [1])
+	ag.set_voltage_measure(False, [3,4])
+	ag.set_current_measure(True, [3,4])
 	
-	ag.output_on([1])
+	ag.output_on([3,4])
 	ag.run_datalog(FILENAME)
 	time.sleep(TIME + 5)
 	
 	#urllib.urlretrieve("http://" + AGILENT_IP + '/' + FILENAME + ".dlog", FILENAME + ".dlog")
 	pretty_download(FILENAME)
 	
-	ag.output_off([1])
+	#ag.output_off([1])
 	ag.close()
-print 'Mesure finie et récupérée'
-return
+	return
+
+main()
