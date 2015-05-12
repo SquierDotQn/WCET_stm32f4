@@ -3,15 +3,15 @@ arm-none-eabi-gcc -g -O2 -Wall -Tstm32_flash.ld  -DUSE_STDPERIPH_DRIVER -mlittle
 arm-none-eabi-objcopy -O ihex project.elf project.hex
 arm-none-eabi-objcopy -O binary project.elf project.bin
 ~/stlink/st-flash write project.bin 0x8000000
-2015-05-04T15:47:46 INFO src/stlink-common.c: Loading device parameters....
-2015-05-04T15:47:46 INFO src/stlink-common.c: Device connected is: F4 device, id 0x10016413
-2015-05-04T15:47:46 INFO src/stlink-common.c: SRAM size: 0x30000 bytes (192 KiB), Flash: 0x100000 bytes (1024 KiB) in pages of 16384 bytes
-2015-05-04T15:47:46 INFO src/stlink-common.c: Attempting to write 4820 (0x12d4) bytes to stm32 address: 134217728 (0x8000000)
+2015-05-11T11:00:14 INFO src/stlink-common.c: Loading device parameters....
+2015-05-11T11:00:14 INFO src/stlink-common.c: Device connected is: F4 device, id 0x10016413
+2015-05-11T11:00:14 INFO src/stlink-common.c: SRAM size: 0x30000 bytes (192 KiB), Flash: 0x100000 bytes (1024 KiB) in pages of 16384 bytes
+2015-05-11T11:00:14 INFO src/stlink-common.c: Attempting to write 5020 (0x139c) bytes to stm32 address: 134217728 (0x8000000)
 EraseFlash - Sector:0x0 Size:0x4000
-Flash page at addr: 0x08000000 erased2015-05-04T15:47:47 INFO src/stlink-common.c: Finished erasing 1 pages of 16384 (0x4000) bytes
-2015-05-04T15:47:47 INFO src/stlink-common.c: Starting Flash write for F2/F4
-2015-05-04T15:47:47 INFO src/stlink-common.c: Successfully loaded flash loader in sram
-2015-05-04T15:47:47 INFO src/stlink-common.c: Starting verification of write complete
-2015-05-04T15:47:47 INFO src/stlink-common.c: Flash written and verified! jolly good!
+Flash page at addr: 0x08000000 erased2015-05-11T11:00:15 INFO src/stlink-common.c: Finished erasing 1 pages of 16384 (0x4000) bytes
+2015-05-11T11:00:15 INFO src/stlink-common.c: Starting Flash write for F2/F4
+2015-05-11T11:00:15 INFO src/stlink-common.c: Successfully loaded flash loader in sram
+2015-05-11T11:00:15 INFO src/stlink-common.c: Starting verification of write complete
+2015-05-11T11:00:15 INFO src/stlink-common.c: Flash written and verified! jolly good!
 
-size: 4820
+size: 5020

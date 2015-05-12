@@ -17,9 +17,6 @@ int fib(int n) {
    int tmp = 0;
 
    GPIO_SetBits(GPIOB, GPIO_Pin_3);
-   /*ms_delay(100);
-   GPIO_ResetBits(GPIOB, GPIO_Pin_3);
-   GPIO_SetBits(GPIOB, GPIO_Pin_3);*/
    while (n--) {
       tmp = first+second;
       first = second;
@@ -34,7 +31,7 @@ int fib(int n) {
 
 int main(){
    int a;
-   a = 10000000;                         // fibonnaci 10 000 000
+   a = 50000000;                         // fibonnaci 50 000 000
 
    GPIO_InitTypeDef GPIO_InitStruct;
    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
@@ -51,3 +48,4 @@ int main(){
       ms_delay(1000);
    }
 }
+

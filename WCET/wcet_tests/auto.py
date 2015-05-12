@@ -45,15 +45,16 @@ def main():
 	ag = agilent.Agilent(AGILENT_IP, AGILENT_PORT)
 	ag.connect()
 	
-	ag.set_voltage(3, [3]) # Pour la carte
-	ag.set_current(2, [3]) # Pour la carte
-	ag.set_voltage(5, [4]) # Pour le montage avec transistor
-	ag.set_period(0.00002, [3,4])
+	ag.set_voltage(3, [1]) # Pour la carte
+	ag.set_current(2, [1]) # Pour la carte
+	ag.set_voltage(5, [2]) # Pour le montage avec transistor
+	ag.set_current(2, [2]) # Pour le montage
+	ag.set_period(0.00002, [1,2])
 	ag.set_time(TIME, [1])
-	ag.set_voltage_measure(False, [3,4])
-	ag.set_current_measure(True, [3,4])
+	ag.set_voltage_measure(False, [1,2])
+	ag.set_current_measure(True, [1,2])
 	
-	ag.output_on([3,4])
+	ag.output_on([1,2])
 	ag.run_datalog(FILENAME)
 	time.sleep(TIME + 5)
 	

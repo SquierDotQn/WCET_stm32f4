@@ -1,3 +1,17 @@
 rm -f *.o project.elf project.hex project.bin
-make: *** No rule to make target 'stm32f4xx_rcc.c', needed by 'project.elf'. Arrêt.
-make: *** No rule to make target 'stm32f4xx_rcc.c', needed by 'project.elf'. Arrêt.
+arm-none-eabi-gcc -g -O2 -Wall -Tstm32_flash.ld  -DUSE_STDPERIPH_DRIVER -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I. -I../../STM32F4-Discovery_FW_V1.1.0/Utilities/STM32F4-Discovery -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Include -I../../STM32F4-Discovery_FW_V1.1.0/Libraries/STM32F4xx_StdPeriph_Driver/inc main.c system_stm32f4xx.c ../../STM32F4-Discovery_FW_V1.1.0/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.c ../../STM32F4-Discovery_FW_V1.1.0/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.c ../../STM32F4-Discovery_FW_V1.1.0/Libraries/CMSIS/ST/STM32F4xx/Source/Templates/TrueSTUDIO/startup_stm32f4xx.s -o project.elf 
+arm-none-eabi-objcopy -O ihex project.elf project.hex
+arm-none-eabi-objcopy -O binary project.elf project.bin
+~/stlink/st-flash write project.bin 0x8000000
+2015-05-11T11:03:31 INFO src/stlink-common.c: Loading device parameters....
+2015-05-11T11:03:31 INFO src/stlink-common.c: Device connected is: F4 device, id 0x10016413
+2015-05-11T11:03:31 INFO src/stlink-common.c: SRAM size: 0x30000 bytes (192 KiB), Flash: 0x100000 bytes (1024 KiB) in pages of 16384 bytes
+2015-05-11T11:03:31 INFO src/stlink-common.c: Attempting to write 5020 (0x139c) bytes to stm32 address: 134217728 (0x8000000)
+EraseFlash - Sector:0x0 Size:0x4000
+Flash page at addr: 0x08000000 erased2015-05-11T11:03:31 INFO src/stlink-common.c: Finished erasing 1 pages of 16384 (0x4000) bytes
+2015-05-11T11:03:31 INFO src/stlink-common.c: Starting Flash write for F2/F4
+2015-05-11T11:03:31 INFO src/stlink-common.c: Successfully loaded flash loader in sram
+2015-05-11T11:03:31 INFO src/stlink-common.c: Starting verification of write complete
+2015-05-11T11:03:31 INFO src/stlink-common.c: Flash written and verified! jolly good!
+
+size: 5020
