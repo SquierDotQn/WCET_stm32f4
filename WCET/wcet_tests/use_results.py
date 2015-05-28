@@ -37,6 +37,7 @@ def get_avg_binary():
 #####################################################
 def get_avg_consumption(data_list, binary_list, sample_time):
 	cons_samples = []
+	time_samples = []
 	nb_samples = 0
 	i = 0
 	#avg_binary = get_avg_binary()
@@ -56,15 +57,17 @@ def get_avg_consumption(data_list, binary_list, sample_time):
 
 	# On ne veut pas des 1ers samples ni derniers, car ils sont peut etre incomplets, donc fausseraient la moyenne
 	cons_samples = cons_samples[1:len(cons_samples)-1]
-
+	i = 0
+	while i<len(cons_samples):
+		time_samples.append(get_time(cons_samples,sample_time))
+		i = i + 1
 	# On fait la moyenne des conso moyennes
 	avg_consumption = np.mean(cons_samples)
-
+	
 	return avg_consumption
 
 
 
-# unfinished
 ########################################################
 # Returns the consumption of this sample of a function #
 # The sample is from the beginning                     #
@@ -78,6 +81,19 @@ def get_consumption(list_data, sample_time):
 	consumption = avg_intensity * time
 	#print "Conso : "+str(avg_intensity)+"A sur "+str(time)+"s"
 	return consumption
+
+
+
+########################################################
+# Returns the consumption of this sample of a function #
+# The sample is from the beginning                     #
+# to the end of a function                             #
+########################################################
+
+# t=q/i, t en s/min/h, q en Ah/coulomb, i en A
+def get_time(list_data, sample_time):
+	time = len(list_data) * sample_time
+	return time
 
 
 ######################

@@ -12,15 +12,12 @@ void ms_delay(int ms){
    }
 }
 
-int fib(int n) {
-   int first = 0, second = 1;
-   int tmp = 0;
+float fpu(float n) {
+   float tmp = n;
 
    GPIO_SetBits(GPIOB, GPIO_Pin_3);
    while (n--) {
-      tmp = first+second;
-      first = second;
-      second = tmp;
+      tmp = tmp / n;
    }
    
    GPIO_ResetBits(GPIOB, GPIO_Pin_3);
@@ -30,8 +27,8 @@ int fib(int n) {
 
 
 int main(){
-   int a;
-   a = 1000000;                         // fibonnaci 1 000 000
+   float a;
+   a = 5000000;                         // 5 000 000 de divisions en float
 
    GPIO_InitTypeDef GPIO_InitStruct;
    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
@@ -44,7 +41,7 @@ int main(){
 
    ms_delay(100);
    while(1){
-      fib(a);                             // fibo avec temps de calcul avec pin pb3
+      fpu(a);
       ms_delay(1000);
    }
 }

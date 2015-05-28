@@ -14,7 +14,7 @@ if [ ! -d $1 ]; then
     exit 1
 fi
 cd $1
-./reload.sh > \dev\null 2>&1
+#./reload.sh > \dev\null 2>&1
 echo "------------------------------------------------"
 echo ""
 echo "<Appuyez sur Reset puis débranchez le cable USB>"

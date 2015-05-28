@@ -49,7 +49,7 @@ def main():
 	ag.set_current(2, [1]) # Pour la carte
 	ag.set_voltage(5, [2]) # Pour le montage avec transistor
 	ag.set_current(2, [2]) # Pour le montage
-	ag.set_period(0.00002, [1,2])
+	ag.set_period(0.002, [1,2])
 	ag.set_time(TIME, [1])
 	ag.set_voltage_measure(False, [1,2])
 	ag.set_current_measure(True, [1,2])

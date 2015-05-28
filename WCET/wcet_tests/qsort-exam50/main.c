@@ -40,9 +40,11 @@
 /*                                                                       */
 /*                                                                       */
 /*************************************************************************/
-
-#include "stm32f4_discovery.h"
 #include "stm32f4xx.h"
+#include "stm32f4xx_gpio.h"
+#include "stm32f4xx_rcc.h"
+#include "stm32f4xx_conf.h"
+
 //Quick hack, approximately 1ms delay
 void ms_delay(int ms){
    GPIOD->MODER = (1 << 28);             // set pin 14 to be general purpose output
@@ -58,9 +60,12 @@ void ms_delay(int ms){
 #define M 7
 #define NSTACK 50
 
-float arr[20] = {
+float arr[50] = {
   5, 4, 10.3, 1.1, 5.7, 100, 231, 111, 49.5, 99,
-  10, 150, 222.22, 101, 77, 44, 35, 20.54, 99.99, 88.88
+  10, 150, 222.22, 101, 77, 44, 35, 20.54, 99.99, 88.88,
+  5, 4, 10.3, 1.1, 5.7, 100, 231, 111, 49.5, 99,
+  10, 150, 222.22, 101, 77, 44, 35, 20.54, 99.99, 88.88,
+  5, 4, 10.3, 1.1, 5.7, 100, 231, 111, 49.5, 99
 };
 
 int istack[100];
@@ -69,21 +74,26 @@ void sort(unsigned long n)
 {
 	unsigned long i,ir=n,j,k,l=1;
 	int jstack=0;
-	int flag;
 	float a,temp;
 
-	flag = 0;
+ 	GPIO_SetBits(GPIOB, GPIO_Pin_3);     // PIN PB3 ACTIVATED
 	for (;;) {
 		if (ir-l < M) {
 			for (j=l+1;j<=ir;j++) {
 				a=arr[j];
 				for (i=j-1;i>=l;i--) {
-					if (arr[i] <= a) break;
+					if (arr[i] <= a){
+ 						GPIO_ResetBits(GPIOB, GPIO_Pin_3);   // PIN PB3 DEACTIVATED
+						break;
+					}
 					arr[i+1]=arr[i];
 				}
 				arr[i+1]=a;
 			}
-			if (jstack == 0) break;
+			if (jstack == 0) {
+				GPIO_ResetBits(GPIOB, GPIO_Pin_3);   // PIN PB3 DEACTIVATED
+				break;
+			}
 			ir=istack[jstack--];
 			l=istack[jstack--];
 		} else {
@@ -104,7 +114,10 @@ void sort(unsigned long n)
 			for (;;) {
 				i++; while (arr[i] < a) i++;
 				j--; while (arr[j] > a) j--;
-				if (j < i) break;
+				if (j < i){
+					GPIO_ResetBits(GPIOB, GPIO_Pin_3);   // PIN PB3 DEACTIVATED
+					break;
+				}
 				SWAP(arr[i],arr[j]);
 			}
 			arr[l+1]=arr[j];
@@ -124,13 +137,25 @@ void sort(unsigned long n)
 	}
 }
 
-main()
-{
- RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;  // enable the clock to GPIOD
- ms_delay(100);
- while(1){
-  sort(20);
-  ms_delay(1000);                     // 1 seconde avec led rouge allumée
- }
+
+
+void pin_init(void){
+   GPIO_InitTypeDef GPIO_InitStruct;
+   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+   GPIO_InitStruct.GPIO_Pin = GPIO_Pin_3; // we want to configure pb3
+   GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT; // we want the pins to be an output
+   GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz; // this sets the GPIO modules clock speed
+   GPIO_InitStruct.GPIO_OType = GPIO_OType_PP; // this sets the pin type to push / pull (as opposed to open drain)
+   GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL; // this sets the pullup / pulldown resistors to be inactive
+   GPIO_Init(GPIOB, &GPIO_InitStruct); // this finally passes all the values to the GPIO_Init function which takes care of setting the corresponding bits.
 }
 
+int main(void)
+{
+	pin_init();
+	ms_delay(100);
+	while(1){
+ 		sort(50);
+		ms_delay(1000);                     // 1 seconde avec led rouge allumée
+	}
+}
